@@ -1,0 +1,20 @@
+function [ n_u,ng ] = P3_ngram_helper( textfile1,ngrams )
+    % Helper Function for generating ngrams
+    % used for Question 3
+    
+    textfile1 = regexprep(textfile1,'\s+',' '); %Replace multiple spaces with 1 space
+    textfile1 = regexprep(textfile1,'[^A-Za-z ]',''); %replace everything except chars
+    textfile1 = lower(textfile1); %standardize to lower case
+    char_array1=strread(textfile1,'%s','delimiter',' '); %split by whitespace
+    A1 = hankel(1:numel(char_array1),1:ngrams);
+    ngrams1 = char_array1( A1(1:numel(char_array1)-ngrams+1,:) );
+    cellRows1 = mat2cell(ngrams1,ones(size(ngrams1,1),1),size(ngrams1,2)); 
+    ngrams1 = cellfun(@strjoin,cellRows1,'uni',0);
+    n1_u = unique(ngrams1);
+    
+    ng = ngrams1;
+    n_u = n1_u;
+    
+
+end
+
